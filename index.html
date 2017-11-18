@@ -35,25 +35,37 @@
   }
 
     //$(document).ready(function(){
-     var resourceid = getUrlVar()["url"];
-     console.log(resourceid);
+     var resourceid = getUrlVar()["resourceid"];
+     var url = getUrlVar()["url"];
+
      var type = getUrlVar()["type"];
      var loadedManifest = getUrlVar()['loadedManifest'];
      var canvas = getUrlVar()['canvas'];
-
-     url = "https://scta.info/iiif/" + resourceid + "/collection";
-
+     if (url){
+       url = url
+       type = type ? type : "collectionUri"
+     }
+     else{
+       if (type === "manifestUri"){
+         url = "https://scta.info/iiif/" + resourceid + "/manifest";
+         type ="manifestUri";
+       }
+       else {
+         url = "https://scta.info/iiif/" + resourceid + "/collection";
+       }
+     }
 
      $(function() {
       // Called without "let" or "var"
       // so we can play with it in the browser
+      console.log(type);
       myMiradorInstance = Mirador({
         "id": "viewer",
          "layout": "1x1",
          "buildPath": "mirador/",
          "openManifestsPage": true,
          "data": [
-           { "collectionUri": url}
+           { [type]: url}
          ],
          "mainMenuSettings" : {
            "userButtons": [
@@ -77,7 +89,7 @@
           "annotationEndpoint": { "name":"Local Storage", "module": "LocalStorageEndpoint" },
           "sidePanelOptions" : {
            "tocTabAvailable": true,
-           "layersTabAvailable": true,
+           "layersTabAvailable": false,
            "searchTabAvailable": true,
            "annotations" : true
          },
