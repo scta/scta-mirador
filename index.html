@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" type="text/css" href="/mirador/css/mirador-combined.css">
+    <link rel="stylesheet" type="text/css" href="MiradorDisableZoom.css"/>
+    <link rel="stylesheet" type="text/css" href="ldn-plugin.css"/>
+    <title>Mirador Viewer</title>
+    <style type="text/css">
+     #viewer {
+       width: 100%;
+       height: 100%;
+       position: fixed;
+     }
+    </style>
+  </head>
+  <body>
+    <div id="viewer"></div>
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+    <script src="/mirador/mirador.js"></script>
+    <script src="MiradorDisableZoom.js"></script>
+
+    <script type="text/javascript">
+    function getUrlVar() {
+      var result = {};
+      var location = window.location.href.split('#');
+      var parts = location[0].replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+          result [key] = value;
+      });
+      return result;
+  }
+
+    //$(document).ready(function(){
+     var resourceid = getUrlVar()["url"];
+     console.log(resourceid);
+     var type = getUrlVar()["type"];
+     var loadedManifest = getUrlVar()['loadedManifest'];
+     var canvas = getUrlVar()['canvas'];
+
+     url = "https://scta.info/iiif/" + resourceid + "/collection";
+
+
+     $(function() {
+      // Called without "let" or "var"
+      // so we can play with it in the browser
+      myMiradorInstance = Mirador({
+        "id": "viewer",
+         "layout": "1x1",
+         "buildPath": "/mirador/",
+         "openManifestsPage": true,
+         "data": [
+           { "collectionUri": url}
+         ],
+         "mainMenuSettings" : {
+           "userButtons": [
+             {
+              "label": "Donate",
+              "iconClass": "fa fa-link",
+              "attributes": { "class": "links", "href": "http://scta.info/donate"}
+              }
+            ],
+            "userLogo": {
+              "label": "Scholastic Commentaries and Text Archive Image Viewer",
+              "attributes": { "id": "scta-logo", "href": "http://scta.info"}
+            }
+          },
+          // "windowObjects": [{
+          //  //loadedManifest: "http://iiif/id/and/uri/of/your/manifest.json",
+          //  //canvasID: "http://iiif/id/and/uri/of/your/canvas/canvas-id",
+          // //viewType: "ImageView"
+          //   }
+          // ],
+          "annotationEndpoint": { "name":"Local Storage", "module": "LocalStorageEndpoint" },
+          "sidePanelOptions" : {
+           "tocTabAvailable": true,
+           "layersTabAvailable": true,
+           "searchTabAvailable": true,
+           "annotations" : true
+         },
+      });
+     });
+   //});
+
+
+
+    </script>
+    <script src="/ldn-plugin.js"></script>
+  </body>
+</html>
