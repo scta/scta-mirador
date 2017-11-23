@@ -55,6 +55,7 @@
          type ="collectionUri";
        }
      }
+     var manifestPanel = getUrlVar().length > 0 ? "ManifestsPanel" : "CollectionTreeManifestsPanel";
 
      $(function() {
       // Called without "let" or "var"
@@ -66,7 +67,8 @@
          "buildPath": "mirador/",
          "openManifestsPage": true,
          "data": [
-           { [type]: url}
+           { [type]: url},
+           { "collectionUri": "https://scta.info/iiif/scta/collection"}
          ],
          "mainMenuSettings" : {
            "userButtons": [
@@ -74,7 +76,13 @@
               "label": "Donate",
               "iconClass": "fa fa-link",
               "attributes": { "class": "links", "href": "http://scta.info/donate"}
-              }
+              },
+              {
+               "label": "Collection Browser",
+               "iconClass": "fa fa-link",
+               "attributes": { "class": "links", "href": "/"}
+               }
+
             ],
             "userLogo": {
               "label": "Scholastic Commentaries and Text Archive Image Viewer",
@@ -94,6 +102,9 @@
            "searchTabAvailable": true,
            "annotations" : true
          },
+         "manifestsPanel": {
+           "module": manifestPanel,
+         }
       });
      });
    //});
