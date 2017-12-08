@@ -32,6 +32,14 @@
           result [key] = value;
       });
       return result;
+    }
+    // utility function taken from https://coderwall.com/p/_g3x9q/how-to-check-if-javascript-object-is-empty -->
+    function isEmpty(obj) {
+      for(var key in obj) {
+          if(obj.hasOwnProperty(key))
+              return false;
+      }
+      return true;
   }
 
     //$(document).ready(function(){
@@ -55,7 +63,8 @@
          type ="collectionUri";
        }
      }
-     var manifestPanel = getUrlVar().length > 0 ? "ManifestsPanel" : "CollectionTreeManifestsPanel";
+     console.log("test", isEmpty(getUrlVar()));
+     var manifestPanel = !isEmpty(getUrlVar()) ? "ManifestsPanel" : "CollectionTreeManifestsPanel";
 
      $(function() {
       // Called without "let" or "var"
