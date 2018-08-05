@@ -66,6 +66,13 @@
      console.log("test", isEmpty(getUrlVar()));
      var manifestPanel = !isEmpty(getUrlVar()) ? "ManifestsPanel" : "CollectionTreeManifestsPanel";
 
+     let data = [
+       { [type]: url},
+       { "collectionUri": "https://scta.info/iiif/scta/collection"},
+     ]
+
+     if (isEmpty(getUrlVar())) { data.push({ "collectionUri": "https://scta.info/iiif/codices/collection"})}
+
      $(function() {
       // Called without "let" or "var"
       // so we can play with it in the browser
@@ -75,11 +82,7 @@
          "layout": "1x1",
          "buildPath": "mirador/",
          "openManifestsPage": true,
-         "data": [
-           { [type]: url},
-           { "collectionUri": "https://scta.info/iiif/scta/collection"},
-           { "collectionUri": "https://scta.info/iiif/codices/collection"}
-         ],
+         "data": data,
          "mainMenuSettings" : {
            "userButtons": [
              {
