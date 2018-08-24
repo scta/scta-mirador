@@ -2005,6 +2005,9 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 }
 .mirador-container .slot .remove-slot-option {
   position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
   margin: 10px;
   color: gray;
   cursor: pointer;
@@ -2178,6 +2181,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   overflow: hidden;
   background-color: #333;
   top: 0%;
+  z-index: 1;
 }
 .mirador-container .manifest-info {
   overflow: auto;
