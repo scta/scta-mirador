@@ -43,7 +43,7 @@
   }
 
     //$(document).ready(function(){
-     var resourceid = getUrlVar()["resourceid"];
+     let resourceid = getUrlVar()["resourceid"];
      var url = getUrlVar()["url"];
 
      var type = getUrlVar()["type"];
@@ -55,10 +55,16 @@
      }
      else{
        if (type === "manifestUri"){
+         if (resourceid){
+          resourceid = resourceid.includes("scta.info/resource/") ? resourceid.split("scta.info/resource/")[1] : resourceid
+         }
          url = "https://scta.info/iiif/" + resourceid + "/manifest";
          type ="manifestUri";
        }
        else {
+        if (resourceid){
+          resourceid = resourceid.includes("scta.info/resource/") ? resourceid.split("scta.info/resource/")[1] : resourceid
+         }
          url = "https://scta.info/iiif/" + resourceid + "/collection";
          type ="collectionUri";
        }
